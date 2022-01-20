@@ -1,0 +1,8 @@
+business\JWTHelper.class
+entity\Credentials.class
+filters\JWTFilter.class
+resource\AuthentiticationResource.class
+resource\PersonneResource.class
+app\RestAPI.class
+entity\Personne.class
+business\PersonneBusiness.class
