@@ -1,0 +1,9 @@
+smartwatchdata\SmartwatchData.class
+filters\JWTFilter.class
+customer\CustomerSmartwatch.class
+app\ApiREST.class
+customer\Credentials.class
+auth\Auth.class
+jwt\JwtHelper.class
+producer\ProducerSmartwatch.class
+ressource\SmartwatchRessource.class
