@@ -2,7 +2,6 @@ package ressource;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
@@ -32,6 +31,7 @@ public class SmartwatchRessource {
 		if(!done) {
 			for(int i =  0; i < 100; i++) {
 				int pas = (int) Math.floor(Math.random()*(20000-0+1)+0);
+				int userId = (int) Math.floor(Math.random()*(5-1+1)+1);
 				double tension = Math.random()*(20d-10d+1)+10d;
 				double rythmeCardiaque = Math.random()*(200d-60d+1)+60d;
 				int randomHeure = (int) Math.floor(Math.random()*(10-4+1)+4);
@@ -40,7 +40,7 @@ public class SmartwatchRessource {
 				String sommeil = (String) (randomHeure + "h" + randomMinute + "min");
 				int calorie = (int) Math.floor(Math.random()*(10000-0+1)+0);
 				
-				SmartwatchData data = new SmartwatchData(i, pas, tension, rythmeCardiaque, sommeil, calorie);
+				SmartwatchData data = new SmartwatchData(i, userId, pas, tension, rythmeCardiaque, sommeil, calorie);
 				datas.add(data);
 			}
 			done = true;
@@ -92,4 +92,29 @@ public class SmartwatchRessource {
 		datas.remove(id);
 		return Response.ok(datas).build();
 	}
+	
+
+	@GET
+	@Path("_search")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response search(@QueryParam("userId") Integer userId) {
+		List<SmartwatchData> userDatas = new ArrayList<>();
+		SmartwatchData currentData;
+		if(userId != null) {
+			for(int i = 0; i < datas.stream().count(); i++) {
+				currentData = datas.stream().filter(data -> userId == data.getUserId()).findAny().orElse(null);
+				if(currentData != null){
+					userDatas.add(currentData);
+				}
+			}
+			return Response.ok(userDatas).build();
+		}
+		else {
+			return Response.ok(datas).build();
+		}
+	}
 }
+
+
+
+

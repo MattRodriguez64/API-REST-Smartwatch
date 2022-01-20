@@ -3,14 +3,16 @@ package smartwatchdata;
 public class SmartwatchData {
 	
 	private int id;
+	private int userId;
 	private int pas;
 	private double tension;
 	private double rythmeCardiaque;
 	private String sommeil;
 	private int calorie;
 	
-	public SmartwatchData(int id, int pas, double tension, double rythmeCardiaque, String sommeil, int calorie) {
+	public SmartwatchData(int id, int userId, int pas, double tension, double rythmeCardiaque, String sommeil, int calorie) {
 		this.id = id;
+		this.setUserId(userId);
 		this.pas = pas;
 		this.tension = tension;
 		this.rythmeCardiaque = rythmeCardiaque;
@@ -58,6 +60,16 @@ public class SmartwatchData {
 
 	public void setId(int id) {
 		this.id = id;
+	}
+
+
+	public int getUserId() {
+		return userId;
+	}
+
+
+	public void setUserId(int userId) {
+		this.userId = userId;
 	}
 
 }
