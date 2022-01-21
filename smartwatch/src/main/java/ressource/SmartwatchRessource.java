@@ -17,10 +17,19 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 
 import smartwatchdata.SmartwatchData;
-import java.lang.Math;   
+import java.lang.Math;  
+
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.ArraySchema;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+import io.swagger.v3.oas.annotations.tags.Tag;
 
 
 @Path("datas")
+@Tag(name = "SmartwatchData")
 public class SmartwatchRessource {
 
 	private List<SmartwatchData> datas = new ArrayList<>();
@@ -50,6 +59,10 @@ public class SmartwatchRessource {
 
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
+	@Operation(summary = "Get all Datas", description = "Get all Datas", responses = {
+			@ApiResponse(responseCode = "200", description = "Succes", content = @Content(mediaType = "application/json", array = @ArraySchema(schema = @Schema(implementation = SmartwatchData.class)))),
+			@ApiResponse(responseCode = "500", description = "Internal Server Error") })
+	@SecurityRequirement(name = "bearer-auth")
 	public Response getAllData() {
 		return Response.ok(datas).build();
 	}
@@ -57,6 +70,11 @@ public class SmartwatchRessource {
 	@GET
 	@Path("{id}")
 	@Produces(MediaType.APPLICATION_JSON)
+	@Operation(summary = "Get a SmartwatchData statement", description = "Get a SmartwatchData statement by its id", responses = {
+			@ApiResponse(responseCode = "200", description = "Success", content = @Content(mediaType = "application/json", schema = @Schema(implementation = SmartwatchData.class))),
+			@ApiResponse(responseCode = "404", description = "SmartwatchData statement not found"),
+			@ApiResponse(responseCode = "500", description = "Internal Server Error") })
+	@SecurityRequirement(name = "bearer-auth")
 	public Response getSmartwatchData(@PathParam("id") int id) {
 		return Response.ok(datas.stream().filter(
 				data -> id == data.getId())
@@ -66,6 +84,11 @@ public class SmartwatchRessource {
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
+	@Operation(summary = "Add a SmartwatchData", description = "Add a SmartwatchData", responses = {
+			@ApiResponse(responseCode = "200", description = "Success"),
+			@ApiResponse(responseCode = "400", description = "Bad Request"),
+			@ApiResponse(responseCode = "500", description = "Internal Server Error") })
+	@SecurityRequirement(name = "bearer-auth")
 	public Response addSmartwatchData(SmartwatchData data) {
 		datas.add(data);
 		return Response.ok(datas).build();
@@ -75,6 +98,11 @@ public class SmartwatchRessource {
 	@Path("{id}")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
+	@Operation(summary = "Update an SmartwatchData statement", description = "Update an SmartwatchData statement by its id", responses = {
+			@ApiResponse(responseCode = "200", description = "Success", content = @Content(mediaType = "application/json", schema = @Schema(implementation = SmartwatchData.class))),
+			@ApiResponse(responseCode = "400", description = "Bad Request"),
+			@ApiResponse(responseCode = "500", description = "Internal Server Error") })
+	@SecurityRequirement(name = "bearer-auth")
 	public Response update(@PathParam("id") int id, SmartwatchData newData) {
 		SmartwatchData oldData = datas.stream().filter(data -> id == data.getId()).findAny().orElse(null);
 		if (oldData == null) {
@@ -88,6 +116,10 @@ public class SmartwatchRessource {
 	@DELETE
 	@Path("{id}")
 	@Produces(MediaType.APPLICATION_JSON)
+	@Operation(summary = "Delete a SmartwatchData statement", description = "Delete a SmartwatchData statement by its id", responses = {
+			@ApiResponse(responseCode = "200", description = "Success"),
+			@ApiResponse(responseCode = "500", description = "Internal Server Error") })
+	@SecurityRequirement(name = "bearer-auth")
 	public Response delete(@PathParam("id") int id) {
 		datas.remove(id);
 		return Response.ok(datas).build();
@@ -97,6 +129,10 @@ public class SmartwatchRessource {
 	@GET
 	@Path("_search")
 	@Produces(MediaType.APPLICATION_JSON)
+	@Operation(summary = "Search all the SmartwatchData statement belonging to a user", description = "Search all the SmartwatchData statement belonging to a user, using its userId", responses = {
+			@ApiResponse(responseCode = "200", description = "Success", content = @Content(mediaType = "application/json", schema = @Schema(implementation = SmartwatchData.class))),
+			@ApiResponse(responseCode = "500", description = "Internal Server Error") })
+	@SecurityRequirement(name = "bearer-auth")
 	public Response search(@QueryParam("userId") Integer userId) {
 		List<SmartwatchData> userDatas = new ArrayList<>();
 		SmartwatchData currentData;

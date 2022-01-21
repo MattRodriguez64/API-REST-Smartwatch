@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Smartwatch API docs</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+<style>
+.main-container {
+	width:100%;
+	height:auto;
+	padding:100px;
+}
+
+</style>
+</head>
+<body>
+	<div>
+		<nav class="navbar sticky navbar-dark bg-dark">
+		  <div class="container-fluid">
+		    <a class="navbar-brand" href="https://github.com/MattRodriguez64/API-REST-Smartwatch">Smartwatch API docs</a>
+		  </div>
+		</nav>
+	</div>
+	<div class="main-container">
+		<div class="card mb-5">
+			<ul class="list-group">
+				<li class="list-group-item" style="background-color:#fd7e14;">A BEARER AUTH TOKEN IS REQUIRED TO PERFORM THE FOLLOWINGS ACTIONS !</li>
+				<li class="list-group-item">http://localhost:8080/smartwatch/api/auth</li>
+			</ul>
+		</div>
+		<div class="card text-dark bg-white mb-3" style="width:100%;">
+		  <div class="card-header">GET</div>
+		  <div class="card-body bg-info">
+		    <h5 class="card-title">/datas</h5>
+		    <p class="card-text">Get all the Smartwatch statement</p>
+		    <ul class="list-group">
+			  <li class="list-group-item"><h4>All codes</h4></li>
+			  <li class="list-group-item">Code 200 : Success, return an application/json</li>
+			  <li class="list-group-item">Code 500 : Internal Server Error</li>
+			  <li class="list-group-item bg-dark text-light">A BEARER AUTH TOKEN IS REQUIRED !</li>
+			</ul>
+		  </div>
+		</div>
+		<div class="card text-dark bg-white mb-3" style="width:100%;">
+		  <div class="card-header">GET</div>
+		  <div class="card-body bg-info">
+		    <h5 class="card-title">/datas/{id}</h5>
+		    <p class="card-text">Get a Smartwatch statement, using its id</p>
+		    <ul class="list-group">
+			  <li class="list-group-item"><h4>All codes</h4></li>
+			  <li class="list-group-item">Code 200 : Success, return an application/json</li>
+			  <li class="list-group-item">Code 404 : SmartwatchData statement not found</li>
+			  <li class="list-group-item">Code 500 : Internal Server Error</li>
+			  <li class="list-group-item bg-dark text-light">A BEARER AUTH TOKEN IS REQUIRED !</li>
+			</ul>
+		  </div>
+		</div>
+		<div class="card text-dark bg-white mb-3" style="width:100%;">
+		  <div class="card-header">POST</div>
+		  <div class="card-body bg-success">
+		    <h5 class="card-title">/datas</h5>
+		    <p class="card-text">Add a SmartwatchData statement</p>
+		    <ul class="list-group">
+			  <li class="list-group-item"><h4>All codes</h4></li>
+			  <li class="list-group-item">Code 200 : Success, return an application/json</li>
+			  <li class="list-group-item">Code 400 : Bad Request</li>
+			  <li class="list-group-item">Code 500 : Internal Server Error</li>
+			  <li class="list-group-item bg-dark text-light">A BEARER AUTH TOKEN IS REQUIRED !</li>
+			</ul>
+		  </div>
+		</div>
+		<div class="card text-dark bg-white mb-3" style="width:100%;">
+		  <div class="card-header">PUT</div>
+		  <div class="card-body bg-warning">
+		    <h5 class="card-title">/datas/{id}</h5>
+		    <p class="card-text">Update an SmartwatchData statement</p>
+		    <ul class="list-group">
+			  <li class="list-group-item"><h4>All codes</h4></li>
+			  <li class="list-group-item">Code 200 : Success, return an application/json</li>
+			  <li class="list-group-item">Code 400 : Bad Request</li>
+			  <li class="list-group-item">Code 500 : Internal Server Error</li>
+			  <li class="list-group-item bg-dark text-light">A BEARER AUTH TOKEN IS REQUIRED !</li>
+			</ul>
+		  </div>
+		</div>
+		<div class="card text-dark bg-white mb-3" style="width:100%;">
+		  <div class="card-header">DELETE</div>
+		  <div class="card-body bg-danger">
+		    <h5 class="card-title">/datas/{id}</h5>
+		    <p class="card-text">Delete a SmartwatchData statement by its id</p>
+		    <ul class="list-group">
+			  <li class="list-group-item"><h4>All codes</h4></li>
+			  <li class="list-group-item">Code 200 : Success, return an application/json</li>
+			  <li class="list-group-item">Code 500 : Internal Server Error</li>
+			  <li class="list-group-item bg-dark text-light">A BEARER AUTH TOKEN IS REQUIRED !</li>
+			</ul>
+		  </div>
+		</div>
+	</div>
+	<footer class="bg-light text-center text-lg-start">
+	  <!-- Copyright -->
+	  <div class="text-center p-3 bg-dark text-light">
+	    © 2020 Copyright:
+	    <a class="link-warning" href="https://github.com/MattRodriguez64">Matt RODRIGUEZ</a>
+	  </div>
+	  <!-- Copyright -->
+	</footer>
+</body>
+</html>

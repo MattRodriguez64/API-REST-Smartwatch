@@ -13,13 +13,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.ws.rs.core.Response.Status;
 
-//import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import jwt.JwtHelper;
-
+import lombok.extern.log4j.Log4j2;
 
 @WebFilter("/*")
-
+@Log4j2
 public class JWTFilter implements Filter {
 
 	private static final String AUTH_HEADER_KEY = "Authorization";
@@ -32,7 +32,7 @@ public class JWTFilter implements Filter {
 
 	@Override
 	public void init(FilterConfig filterConfig) throws ServletException {
-	//	log.info("JwtAuthenticationFilter initialized");
+		log.info("JwtAuthenticationFilter initialized");
 	}
 
 	@Override
@@ -54,7 +54,7 @@ public class JWTFilter implements Filter {
 
 		String uri = httpRequest.getRequestURI();
 		String privateKeyHeaderValue = getBearerToken(httpRequest.getHeader(AUTH_HEADER_KEY));
-		//log.debug("HEADER = " + privateKeyHeaderValue);
+		log.debug("HEADER = " + privateKeyHeaderValue);
 		if (!uri.contains(AUTHORIZATION_SERVICE_STANDARD)
 				&& !uri.contains(OPEN_API_SERVICE) && !uri.contains(SWAGGER_UI)) {
 			if (privateKeyHeaderValue == null || privateKeyHeaderValue.isEmpty()) {
@@ -62,18 +62,18 @@ public class JWTFilter implements Filter {
 				httpResponse.setContentType("application/json");
 				String errorResponse = ("Token is missing in header");
 				httpResponse.setStatus(Status.UNAUTHORIZED.getStatusCode());
-				//httpResponse.getWriter().write(new ObjectMapper().writeValueAsString(errorResponse));
+				httpResponse.getWriter().write(new ObjectMapper().writeValueAsString(errorResponse));
 				httpResponse.getWriter().flush();
 				return;
 			}
 			try {
 				JwtHelper.checkJwtValidity(privateKeyHeaderValue);
 			} catch (Exception e) {
-				//log.warn("Error HTTP 511 : Token is not correct.");
+				log.warn("Error HTTP 511 : Token is not correct.");
 				httpResponse.setContentType("application/json");
 				String errorResponse = ("Token is not correct");
 				httpResponse.setStatus(511);
-				//httpResponse.getWriter().write(new ObjectMapper().writeValueAsString(errorResponse));
+				httpResponse.getWriter().write(new ObjectMapper().writeValueAsString(errorResponse));
 				httpResponse.getWriter().flush();
 				return;
 			}
@@ -85,14 +85,14 @@ public class JWTFilter implements Filter {
 
 	@Override
 	public void destroy() {
-		//log.info("JwtAuthenticationFilter destroyed");
+		log.info("JwtAuthenticationFilter destroyed");
 	}
 
 	/**
 	 * Get the bearer token from the HTTP request. The token is in the HTTP request
 	 * "Authorization" header in the form of: "Bearer [token]"
 	 */
-	private String getBearerToken(String authHeader) {
+	public String getBearerToken(String authHeader) {
 		if (authHeader != null && authHeader.toUpperCase().startsWith(AUTH_HEADER_VALUE_PREFIX)) {
 			return authHeader.substring(AUTH_HEADER_VALUE_PREFIX.length());
 		}
