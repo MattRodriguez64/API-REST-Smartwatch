@@ -16,6 +16,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 
+import customer.CustomerSmartwatch;
 import smartwatchdata.SmartwatchData;
 import java.lang.Math;  
 
@@ -64,7 +65,7 @@ public class SmartwatchRessource {
 			@ApiResponse(responseCode = "500", description = "Internal Server Error") })
 	@SecurityRequirement(name = "bearer-auth")
 	public Response getAllData() {
-		return Response.ok(datas).build();
+		return Response.ok(CustomerSmartwatch.t).build();
 	}
 
 	@GET
@@ -138,8 +139,9 @@ public class SmartwatchRessource {
 		SmartwatchData currentData;
 		if(userId != null) {
 			for(int i = 0; i < datas.stream().count(); i++) {
-				currentData = datas.stream().filter(data -> userId == data.getUserId()).findAny().orElse(null);
-				if(currentData != null){
+				
+				currentData = datas.get(i);
+				if(userId.equals(currentData.getUserId())){
 					userDatas.add(currentData);
 				}
 			}

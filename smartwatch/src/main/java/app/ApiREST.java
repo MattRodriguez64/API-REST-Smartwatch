@@ -3,6 +3,9 @@ package app;
 import javax.ws.rs.ApplicationPath;
 
 import org.glassfish.jersey.server.ResourceConfig;
+
+import customer.CustomerSmartwatch;
+
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -24,6 +27,7 @@ public class ApiREST extends ResourceConfig {
 
 	public ApiREST() {
 		packages("resource");
+		
 		
 		log.debug("Lancement du ressource config de l'application.");
 

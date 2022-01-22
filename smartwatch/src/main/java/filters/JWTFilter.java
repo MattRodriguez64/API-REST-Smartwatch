@@ -18,7 +18,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import jwt.JwtHelper;
 import lombok.extern.log4j.Log4j2;
 
-@WebFilter("/*")
+@WebFilter("/api/*")
 @Log4j2
 public class JWTFilter implements Filter {
 
